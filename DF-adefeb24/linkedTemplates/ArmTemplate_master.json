@@ -1,0 +1,153 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DF-adefeb24"
+		},
+		"LS_KV_SQL_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_KV_SQL'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqlserveradefeb24.database.windows.net;Initial Catalog=db-sqldbfeb24;User ID=anand"
+		},
+		"LS_SQL_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQL'"
+		},
+		"LS_SQL_Param_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQL_Param'"
+		},
+		"LS_adls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_adls'"
+		},
+		"LS_blob_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_blob'"
+		},
+		"KV_ADEFEB24_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-adefeb24.vault.azure.net/"
+		},
+		"LS_KV_ADLS_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "adlsconnectionstring"
+		},
+		"EventTrigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/edcfb790-86bc-417d-a525-f3cc75a5274e/resourceGroups/RG-ADEFeb24/providers/Microsoft.Storage/storageAccounts/adlsadefeb24"
+		},
+		"tumblingtrigger_properties_pipeline_parameters_WindowStartDate": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowStartTime"
+		},
+		"tumblingtrigger_properties_pipeline_parameters_WindowEndDate": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowEndTime"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "DF-adefeb24_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_SQL_connectionString": {
+						"value": "[parameters('LS_SQL_connectionString')]"
+					},
+					"LS_SQL_Param_connectionString": {
+						"value": "[parameters('LS_SQL_Param_connectionString')]"
+					},
+					"LS_adls_connectionString": {
+						"value": "[parameters('LS_adls_connectionString')]"
+					},
+					"LS_blob_connectionString": {
+						"value": "[parameters('LS_blob_connectionString')]"
+					},
+					"KV_ADEFEB24_properties_typeProperties_baseUrl": {
+						"value": "[parameters('KV_ADEFEB24_properties_typeProperties_baseUrl')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "DF-adefeb24_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_KV_SQL_connectionString": {
+						"value": "[parameters('LS_KV_SQL_connectionString')]"
+					},
+					"LS_KV_ADLS_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('LS_KV_ADLS_properties_typeProperties_connectionString_secretName')]"
+					},
+					"EventTrigger_properties_typeProperties_scope": {
+						"value": "[parameters('EventTrigger_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DF-adefeb24_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "DF-adefeb24_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"tumblingtrigger_properties_pipeline_parameters_WindowStartDate": {
+						"value": "[parameters('tumblingtrigger_properties_pipeline_parameters_WindowStartDate')]"
+					},
+					"tumblingtrigger_properties_pipeline_parameters_WindowEndDate": {
+						"value": "[parameters('tumblingtrigger_properties_pipeline_parameters_WindowEndDate')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DF-adefeb24_ArmTemplate_1')]"
+			]
+		}
+	]
+}

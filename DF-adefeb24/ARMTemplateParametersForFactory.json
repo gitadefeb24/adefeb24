@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "DF-adefeb24"
+		},
+		"LS_KV_SQL_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqlserveradefeb24.database.windows.net;Initial Catalog=db-sqldbfeb24;User ID=anand"
+		},
+		"LS_SQL_connectionString": {
+			"value": ""
+		},
+		"LS_SQL_Param_connectionString": {
+			"value": ""
+		},
+		"LS_adls_connectionString": {
+			"value": ""
+		},
+		"LS_blob_connectionString": {
+			"value": ""
+		},
+		"KV_ADEFEB24_properties_typeProperties_baseUrl": {
+			"value": "https://kv-adefeb24.vault.azure.net/"
+		},
+		"LS_KV_ADLS_properties_typeProperties_connectionString_secretName": {
+			"value": "adlsconnectionstring"
+		},
+		"EventTrigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/edcfb790-86bc-417d-a525-f3cc75a5274e/resourceGroups/RG-ADEFeb24/providers/Microsoft.Storage/storageAccounts/adlsadefeb24"
+		},
+		"tumblingtrigger_properties_pipeline_parameters_WindowStartDate": {
+			"value": "@trigger().outputs.windowStartTime"
+		},
+		"tumblingtrigger_properties_pipeline_parameters_WindowEndDate": {
+			"value": "@trigger().outputs.windowEndTime"
+		}
+	}
+}
