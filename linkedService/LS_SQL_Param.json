@@ -1,0 +1,17 @@
+{
+	"name": "LS_SQL_Param",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"dBName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=sqlserveradefeb24.database.windows.net;initial catalog=@{linkedService().dBName};user id=anand",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDJBMTE0NEI4LUM1OTEtNEI0RC04NDYxLTNEM0RBMEEyRUUyMF9kZTY3YmU0Mi1lZTJkLTRlYjctYWEyMS03MTc5YTI5NTRlNTUiDQp9"
+		}
+	}
+}

@@ -1,0 +1,11 @@
+{
+	"name": "KV_ADEFEB24",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kv-adefeb24.vault.azure.net/"
+		}
+	}
+}

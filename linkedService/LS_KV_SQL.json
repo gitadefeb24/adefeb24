@@ -1,0 +1,19 @@
+{
+	"name": "LS_KV_SQL",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqlserveradefeb24.database.windows.net;Initial Catalog=db-sqldbfeb24;User ID=anand",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "KV_ADEFEB24",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "dbpassword"
+			}
+		}
+	}
+}

@@ -1,0 +1,34 @@
+{
+	"name": "Dynamic_SQL_dBandTablename",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQL_Param",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"dBName": {
+					"value": "@dataset().dBName",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"dBName": {
+				"type": "String"
+			},
+			"TableName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

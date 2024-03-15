@@ -1,0 +1,90 @@
+{
+	"name": "Copy_dynamic_tableandDB",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Dynamic_SQL_dBandTablename",
+						"type": "DatasetReference",
+						"parameters": {
+							"dBName": {
+								"value": "@pipeline().parameters.InputDbName",
+								"type": "Expression"
+							},
+							"TableName": {
+								"value": "@pipeline().parameters.InputTableName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Dynamic_SQL_dBandTablename",
+						"type": "DatasetReference",
+						"parameters": {
+							"dBName": {
+								"value": "@pipeline().parameters.OutputDbName",
+								"type": "Expression"
+							},
+							"TableName": {
+								"value": "@pipeline().parameters.OutPutTableName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"InputDbName": {
+				"type": "string"
+			},
+			"InputTableName": {
+				"type": "string"
+			},
+			"OutputDbName": {
+				"type": "string"
+			},
+			"OutPutTableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-29T03:28:57Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
